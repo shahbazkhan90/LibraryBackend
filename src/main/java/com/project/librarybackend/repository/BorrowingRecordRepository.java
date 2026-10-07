@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface BorrowingRecordRepository extends JpaRepository<BorrowingRecord,Integer> {
-    Optional<BorrowingRecord> findByBookRelation_BookIdAndMemberRelation_MemberIdAndReturnDateIsNull(Integer bookId, Integer memberId);
+    Optional<BorrowingRecord> findFirstByBookRelation_BookIdAndMemberRelation_MemberIdAndReturnDateIsNull(Integer bookId, Integer memberId);
 
     List<BorrowingRecord>  findByMemberRelation_MemberId(Integer memberId);
 }

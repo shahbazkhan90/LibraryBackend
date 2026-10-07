@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -46,7 +45,7 @@ public class BorrowingService {
 
     @Transactional
     public void returnBook(Integer bookId, Integer memberId) {
-        BorrowingRecord record= borrowingRecordRepository.findByBookRelation_BookIdAndMemberRelation_MemberIdAndReturnDateIsNull(bookId,memberId).orElseThrow(()->new RuntimeException("No record found"));
+        BorrowingRecord record= borrowingRecordRepository.findFirstByBookRelation_BookIdAndMemberRelation_MemberIdAndReturnDateIsNull(bookId,memberId).orElseThrow(()->new RuntimeException("No record found"));
         record.setReturnDate(LocalDateTime.now());
 //        Book book = bookRepository.findById(record.getBookRelation().getBookId()).orElseThrow();
         Book book = record.getBookRelation();
